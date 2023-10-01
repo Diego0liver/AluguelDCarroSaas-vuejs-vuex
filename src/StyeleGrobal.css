@@ -5,6 +5,47 @@
   }
   
   a {
-    text-decoration: none; /* Remove o sublinhado */
-    color: #333; /* Altera a cor do link */
+    text-decoration: none; 
+    color: #333;
+  }
+
+  table {
+    width: 95%;
+    border-collapse: collapse;
+    margin: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+    font-size: 19px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    background-color: #116ea8;
+    color: white;
+  }
+  .back{
+    margin-left: 20px;
+    width: 50px;
+  }
+  /* animacao do botao de voltar */
+  @keyframes animacao {
+    0% {
+      transform: translateX(0); 
+    }
+    50% {
+      transform: translateX(20px); 
+    }
+    100% {
+      transform: translateX(0); 
+    }
+  }
+  .back:hover{
+    animation: animacao 1s ease-in-out infinite; 
   }

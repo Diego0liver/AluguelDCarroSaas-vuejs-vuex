@@ -64,13 +64,11 @@ export default {
   border-radius: 10px;
   margin: 20px;
 }
-
 .subtitulo{
   font-style: italic;
   font-size: 17px;
   color: darkgrey;
 }
-
 .btn-inicio{
   border: none;
   background-color: #fcde04;
@@ -93,5 +91,4 @@ export default {
   padding: 20px;
   width: 90px;
 }
-
 </style>

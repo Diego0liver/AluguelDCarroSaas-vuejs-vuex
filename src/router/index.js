@@ -20,7 +20,34 @@ const router = createRouter({
     name: 'carros',
     
     component: () => import ('@/views/CarrosView.vue')
-}
+},
+{
+  path: '/novocliente',
+  name: 'novocliente',
+    
+    component: () => import ('@/views/NovoCliente.vue')
+},
+{
+  path: '/novocarro',
+  name: 'novocarro',
+    
+    component: () => import ('@/views/NovoCarro.vue')
+},
+{
+  path: '/carroID/:id',
+  name: 'carroID',
+    
+    component: () => import ('@/views/CarroID.vue'),
+    props: true,
+},
+{
+  path: '/clienteID/:id',
+  name: 'clienteID',
+    
+    component: () => import ('@/views/clienteID.vue'),
+    props: true,
+},
+
   ]
 })
 
