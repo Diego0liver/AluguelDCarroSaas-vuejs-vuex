@@ -7,25 +7,62 @@
         <h3 class='titleNewCar'>Formulario para adicionar um novo carro no sistema. Atencao preencher todos os campo</h3>
         <div class='formCarro'>
           <label class='labelCar'>Modelo/Ano:</label>
-          <input class='inputCar' placeholder='Ex: Palio/14' />
+          <input type="text" id="modelo" v-model="modelo" class='inputCar' placeholder='Ex: Palio 14' />
 
           <label class='labelCar'>Cor:</label>
-          <input class='inputCar' /><br/>
+          <input type="text" id="cor" v-model="cor" class='inputCar' /><br/>
 
           <label class='labelCar'>Placa:</label>
-          <input class='inputCar' />
+          <input type="text" id="placa" v-model="placa" class='inputCar' />
 
           <label class='labelCar'>KM:</label>
-          <input class='inputCar' /><br/>
+          <input type="number" id="km" v-model="km" placeholder="Somente numero" class='inputCar' /><br/>
 
           <label class='labelCar'>Valor Diaria:</label>
-          <input class='inputCar' /><br/>
-          <button onClick={newCarId} class='btn-inicio'>Salvar !</button>
+          <input type="text" class='inputCar' id="valorDiaria" v-model="valorDiaria" /><br/>
+          <button @click="postCarro" class='btn-inicio'>Salvar !</button>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+const BASE_URL = 'http://127.0.0.1:8000/api/carro';
+export default{
+  data(){
+    return{
+      modelo: '',
+      cor: '',
+      placa: '',
+      km: '',
+      valorDiaria: ''
+    }
+  },
+  methods:{
+    async postCarro(e){
+      e.preventDefault();
+      const dados={
+      modelo: this.modelo,
+      cor: this.cor,
+      placa: this.placa,
+      km: this.km,
+      valorDiaria: this.valorDiaria,
+    }
+      try{
+        const res = await axios.post(BASE_URL, dados)
+        console.log(res.data)
+           this.modelo = ''
+           this.cor = ''
+           this.placa = ''
+           this.km = ''
+           this.valorDiaria = ''
+           alert("Carro cadastrado")
+      }catch(err){
+        console.log(err)
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
