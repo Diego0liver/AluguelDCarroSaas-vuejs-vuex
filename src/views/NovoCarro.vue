@@ -35,7 +35,8 @@ export default{
       cor: '',
       placa: '',
       km: '',
-      valorDiaria: ''
+      valorDiaria: '',
+      status: ''
     }
   },
   methods:{
@@ -47,6 +48,7 @@ export default{
       placa: this.placa,
       km: this.km,
       valorDiaria: this.valorDiaria,
+      status: 'livre'
     }
       try{
         const res = await axios.post(BASE_URL, dados)

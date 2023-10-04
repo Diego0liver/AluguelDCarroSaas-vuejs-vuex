@@ -49,3 +49,19 @@
   .back:hover{
     animation: animacao 1s ease-in-out infinite; 
   }
+  .btn-inicio{
+    border: none;
+    background-color: #fcde04;
+    color: #116ea8;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-style: italic;
+    font-size: 20px;
+    transition: 0.5s ease, color 0.5s ease;
+  }
+  .btn-inicio:hover{
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    transition: 0.5s ease, color 0.5s ease;
+  }
