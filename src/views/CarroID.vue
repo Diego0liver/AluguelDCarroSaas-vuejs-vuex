@@ -11,12 +11,15 @@
           <p>Placa:{{ dados.placa }} &nbsp; &nbsp; KM:{{ dados.km }}</p>
           <p>Diaria R${{ dados.valorDiaria }}</p>
           <p class='alugado'>Carro {{ dados.status }} para {{dados.cliente && dados.cliente.nome }}</p>
-          <button  class='btn-inicio'>Livrar Carro !</button>
+          <button @click="abriModal" class='btn-inicio'>Livrar Carro !</button>
+           <div>
+            <ModalLivraCarro v-if="viewModal" @fechar-modal="fechaModal" />
+           </div>
         </div>
     </div>
      
     <div v-else class='conteinerCarroId'>
-      <h1>Controle do Carro{{ dados.modelo }}</h1>
+      <h1>Controle do Carro {{ dados.modelo }}</h1>
         <router-link to='/carros'>
           <img class='back' src='@/img/back.png' alt='back' />
         </router-link> 
@@ -27,9 +30,13 @@
          <p>Placa:{{ dados.placa }} &nbsp; &nbsp; KM:{{ dados.km }}</p>
          <p>Diaria R${{ dados.valorDiaria }}</p>
          <p class='livre'>Carro {{ dados.status }}</p>
-         <button class='btn-inicio'>Alugar Carro !</button><br/>
+         <button @click="abriModalAlugar" class='btn-inicio'>Alugar Carro !</button><br/>
        </div>
-       <button class='excluir'>Excluir carro</button> 
+         <div>
+           <ModalAlugaCarro :id_carro="dados.id" :nome_carro="dados.modelo"
+            v-if="modalAlugar" @fecharModal="fechaModalAlugar" />
+         </div>
+       <button @click="excluirCarro(dados.id)" class='excluir'>Excluir carro</button> 
   </div>
 
 </template>
@@ -37,26 +44,57 @@
 
 <script>
 import axios from 'axios';
+import ModalLivraCarro from '../components/modals/ModalLivraCarro.vue'
+import ModalAlugaCarro from '../components/modals/ModalAlugaCarro.vue'
 const BASE_URL = 'http://127.0.0.1:8000/api/carro/'
   export default{
+    components:{
+      ModalLivraCarro,
+      ModalAlugaCarro
+    },
     props: ['id'],
     data() {
      return {
       id: this.$route.params.id,  //passando o valor do id para o id que esta vindo da URL
-      dados: {},  //estado inicial dos dados vindo da API
+      dados: {}, //estado inicial dos dados vindo da API
+      viewModal: false, //chama o modal
+      modalAlugar: false
     };
   },
-    //chamada da API por ID
-    async mounted() {
+    async mounted() {//chamada da API por ID
     try {
        await axios.get(BASE_URL + this.id)
        .then(response => {
-        this.dados = response.data}
-      )
+        this.dados = response.data})
     } catch (error) {
       console.error( error);
     }
   },
+  methods:{
+    excluirCarro() {//exlcuir carro na API
+      try{
+        axios.delete(BASE_URL + this.id)
+        alert('Excluido com sucesso');
+        this.$router.push('/carros');
+        }
+        catch(err){
+         console.log(err)
+        }
+      },
+      //funcao abri e fecha modal
+     abriModal(){
+        this.viewModal = true;
+     },
+     fechaModal(){
+        this.viewModal = false;
+     },
+     abriModalAlugar(){
+        this.modalAlugar = true;
+     },
+     fechaModalAlugar(){
+        this.modalAlugar = false;
+     }
+  }
   }
 </script>
 

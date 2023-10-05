@@ -28,7 +28,7 @@
             </tr>
         </tbody>
       </table>
-  <h3 v-else>Sem carro cadastrado</h3>
+  <h3 v-else>Sem cliente cadastrado</h3>
 </template>
 
 <script>
