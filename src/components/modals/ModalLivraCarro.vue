@@ -4,23 +4,42 @@
         <button @click="fechaModal" class="modal-close">X</button><br/>
         <div>
           <label>Km do carro na entrega*</label><br/>
-          <input type='number'
+          <input type='number' v-model="km" id="km"
           placeholder='Digite o KM aqui' class='inputCar' /> <br/>
-          <button class='btn-inicio' >Livrar carro</button>
+          <button @click="putLivrar" class='btn-inicio' >Livrar carro</button>
         </div>
       </div>
     </div> 
 </template>
 
 <script>
+import axios from 'axios';
+const BASE_URL = 'http://127.0.0.1:8000/api/carro/';
 export default{
   name: 'ModalLivraCarro',
   data(){
     return{
+        km: '',
+        id: this.$route.params.id,
         viewModal: false
     }
   },
   methods:{
+    putLivrar(){
+      const livrarCarro={
+        km: this.km,
+        status: 'livre'
+      }
+      axios.put(BASE_URL + this.id, livrarCarro)
+         .then(response => {
+          console.log('Dados atualizados:', response.data);
+          alert('Carro livre')
+          this.$router.push('/carros')
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
      abriModal(){
         this.viewModal = true;
      },

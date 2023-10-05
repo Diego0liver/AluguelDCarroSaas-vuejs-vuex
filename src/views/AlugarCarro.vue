@@ -8,21 +8,47 @@
          <p class="desc">Antes de confirmar o aluguel <br/> preencha o campo abaixo</p>
           <h3>Alugar {{ nome_carro }} para {{ nome }}</h3>
           <h4>Qual KM atual do {{ carro }}?</h4>
-          <input class='inputCar' type='number' placeholder='Digita o KM aqui' /><br/>
-            <button class='btn-inicio'>Alugar !</button>
+          <input class='inputCar' type='number' v-model="km" id="km" placeholder='Digita o KM aqui' /><br/>
+            <button @click="alugarCarro" class='btn-inicio'>Alugar !</button>
         </div>
     </div>
 </template>
 
 
 <script>
+import axios from 'axios';
+const BASE_URL = 'http://127.0.0.1:8000/api/carro/';
 export default{
   props:{
     id_carro: String,
     nome_carro: String,
     id: String,
     nome: String
+  },
+  data(){
+    return{
+    km: '',
+    id_car: this.$route.params.id_carro
   }
+  },
+methods:{
+  alugarCarro(){
+    const putCar={
+      km: this.km,
+      status: 'alugado',
+      cliente_id: this.id,
+    }
+    axios.put(BASE_URL + this.id_car, putCar)
+         .then(response => {
+          console.log('Dados atualizados:', response.data);
+          alert(`Carro alugado para ${this.nome}`)
+          this.$router.push('/carros')
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }
+}
 }
 </script>
 
