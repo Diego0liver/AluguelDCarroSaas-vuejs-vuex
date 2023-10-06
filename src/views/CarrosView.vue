@@ -3,7 +3,12 @@
     <RouterLink to="/">
     <img class="back" src="@/img/back.png" alt="voltar">
     </RouterLink>
-   <CabecalhoCarro />
+      <div class='cabecalho'>
+          <router-link to="/novoCliente">
+          <img class='addImg' src='@/img/add.png' alt='add' />
+          </router-link>
+          <input v-model="busca" class='inputBusca' placeholder='Buscar carro' />
+        </div>
     <table v-if="ifCar">
           <thead>
             <tr>
@@ -15,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-              <tr v-for="item in data" :key="item.id">
+              <tr v-for="item in filtroCarro" :key="item.id">
                 <td><RouterLink :to="'carroID/' + item.id">
                 {{ item.modelo }}</RouterLink>
                 </td>
@@ -33,15 +38,27 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import CabecalhoCarro from '@/components/CabecalhoCarro.vue'
+
  export default{
-    components:{
-        CabecalhoCarro
-    },
+  data(){
+    return{
+          busca: ''
+    }
+  },
     computed:{
          ...mapState(['data']),
          ifCar(){
             return this.data.length > 0
+         },
+         filtroCarro(){
+              let valores = [];
+              valores = this.data.filter((item) =>{
+                return(
+                  item.modelo.toLowerCase().indexOf(this.busca.toLowerCase()) > -1 ||
+                  item.placa.toLowerCase().indexOf(this.busca.toLowerCase()) > -1
+                )
+              })
+              return valores
          }
     },
     mounted(){
@@ -56,5 +73,27 @@ import CabecalhoCarro from '@/components/CabecalhoCarro.vue'
 <style scoped>
 .tituloCarro{
   text-align: center;
+}
+
+.cabecalho{
+ display: flex;
+ justify-content: center;
+}
+.addImg{
+ width: 30px;
+ height: 30px;
+ cursor: pointer;
+ margin-right: 15px;
+}
+
+.inputBusca{
+ border: 2px solid #116ea8;
+ border-radius: 05px;
+ width: 300px;
+ padding: 5px;
+}
+.inputBusca:focus{
+ box-shadow: 0 0 5px #fcde04;
+ outline: none;
 }
 </style>

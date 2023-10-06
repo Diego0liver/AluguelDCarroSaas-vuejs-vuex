@@ -7,7 +7,7 @@
         <div class='cardCarroId'>
          <p class="desc">Antes de confirmar o aluguel <br/> preencha o campo abaixo</p>
           <h3>Alugar {{ nome_carro }} para {{ nome }}</h3>
-          <h4>Qual KM atual do {{ carro }}?</h4>
+          <h4>Qual KM atual do {{ nome_carro }}?</h4>
           <input class='inputCar' type='number' v-model="km" id="km" placeholder='Digita o KM aqui' /><br/>
             <button @click="alugarCarro" class='btn-inicio'>Alugar !</button>
         </div>
