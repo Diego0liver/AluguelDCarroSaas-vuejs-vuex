@@ -44,6 +44,12 @@ data(){
    methods: {
     async postCliente(e){
       e.preventDefault();
+      if(!this.nome ||
+      !this.documento ||
+      !this.telefone ||
+      !this.genero ){
+        alert("Preencha todos os campos.")
+      }
       const datas ={
         nome: this.nome,
         documento: this.documento,

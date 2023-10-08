@@ -42,6 +42,13 @@ export default{
   methods:{
     async postCarro(e){
       e.preventDefault();
+      if(!this.modelo ||
+      !this.cor ||
+      !this.placa ||
+      !this.km ||
+      !this.valorDiaria){
+        alert("Preencha todos os campos.");
+      }
       const dados={
       modelo: this.modelo,
       cor: this.cor,

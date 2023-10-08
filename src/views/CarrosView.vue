@@ -4,7 +4,7 @@
     <img class="back" src="@/img/back.png" alt="voltar">
     </RouterLink>
       <div class='cabecalho'>
-          <router-link to="/novoCliente">
+          <router-link to="/novocarro">
           <img class='addImg' src='@/img/add.png' alt='add' />
           </router-link>
           <input v-model="busca" class='inputBusca' placeholder='Buscar carro' />
@@ -51,8 +51,9 @@ import { mapActions, mapState } from 'vuex';
             return this.data.length > 0
          },
          filtroCarro(){
-              let valores = [];
-              valores = this.data.filter((item) =>{
+          if (!this.busca) {
+            return this.data;}
+              let valores = this.data.filter((item) =>{
                 return(
                   item.modelo.toLowerCase().indexOf(this.busca.toLowerCase()) > -1 ||
                   item.placa.toLowerCase().indexOf(this.busca.toLowerCase()) > -1

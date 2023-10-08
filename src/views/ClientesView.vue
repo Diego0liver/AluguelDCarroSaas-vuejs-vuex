@@ -51,13 +51,13 @@ export default {
          return this.data.length > 0
        },
        filtroCliente(){
-        let valores = this.data;
-              valores = this.data.filter((item) =>{
-                return(
-                  item.nome.toLowerCase().indexOf(this.busca.toLowerCase()) > -1 ||
-                  item.documento.indexOf(this.busca) > -1)
-              })
-              return valores
+        if (!this.busca) {
+         return this.data;}
+       let valores = this.data.filter((item) => {
+          return (
+            item.nome.toLowerCase().indexOf(this.busca.toLowerCase()) > -1 ||
+            item.documento.indexOf(this.busca) > -1 )});
+         return valores;
        }
      },
     mounted(){
