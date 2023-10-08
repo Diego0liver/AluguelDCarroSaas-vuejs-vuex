@@ -13,7 +13,7 @@
           <input type="text" id="cor" v-model="cor" class='inputCar' /><br/>
 
           <label class='labelCar'>Placa:</label>
-          <input type="text" id="placa" v-model="placa" class='inputCar' />
+          <input v-mask="'AAA-####'" type="text" id="placa" v-model="placa" class='inputCar' />
 
           <label class='labelCar'>KM:</label>
           <input type="number" id="km" v-model="km" placeholder="Somente numero" class='inputCar' /><br/>
@@ -28,7 +28,9 @@
 <script>
 import axios from 'axios';
 const BASE_URL = 'http://127.0.0.1:8000/api/carro';
+import {mask} from 'vue-the-mask'
 export default{
+  directives: {mask},
   data(){
     return{
       modelo: '',

@@ -15,7 +15,7 @@
            placeholder='Somente numeros' type='number' /><br/>
 
           <label class='labelCar'>Telefone</label>
-          <input id="telefone" v-model="telefone" class='inputCar' type='text' />
+          <input v-mask="['(##) ####-####', '(##) #####-####']" id="telefone" v-model="telefone" class='inputCar' type='text' />
 
           <label class='labelCar'>Genero</label>
           <select id="genero" v-model="genero" name="genero" class='inputCar' >
@@ -32,8 +32,10 @@
 
 <script>
 import axios from 'axios';
-const BASE_URL = 'http://127.0.0.1:8000/api/cliente'
+const BASE_URL = 'http://127.0.0.1:8000/api/cliente';
+import {mask} from 'vue-the-mask'
 export default{
+  directives: {mask},
 data(){
    return{
        nome: '',
